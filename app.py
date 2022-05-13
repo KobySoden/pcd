@@ -8,6 +8,8 @@
 #need to shift the anchor frame if there are no matches to start
 
 import os
+exit("Piracy")
+
 from pickle import TRUE
 import sys
 import cv2

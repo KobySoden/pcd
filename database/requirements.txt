@@ -1,2 +1,5 @@
 python-dotenv
 faunadb
+requests
+bs4
+validators

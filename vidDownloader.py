@@ -1,10 +1,16 @@
 import requests
 import sys
 from bs4 import BeautifulSoup
- 
+import validators
+
+path = "videos/"
+
 def get_video_links(archive_url):
-  #create response object
-  r = requests.get(archive_url)
+  try:
+    #create response object
+    r = requests.get(archive_url)
+  except:
+    return None
   #create beautiful-soup object
   soup = BeautifulSoup(r.content,'html5lib')
   #find all links on web-page
@@ -14,7 +20,7 @@ def get_video_links(archive_url):
   print("All Links on the site")
   for link in links:
       #print(link.prettify())
-      if link.get('href') != None:
+      if link.get('href') != None and validators.url(link.get('href')):
         #print(link.keys)
         print(link.get('href'))
   
@@ -41,7 +47,7 @@ def download_video_series(video_links):
     r = requests.get(link, stream = True)
  
     #download started
-    with open(file_name, 'wb') as f:
+    with open(path+file_name, 'wb') as f:
       for chunk in r.iter_content(chunk_size = 1024*1024):
         if chunk:
           f.write(chunk)
