@@ -50,7 +50,9 @@ if __name__ == "__main__":
 
                     if piracy == "9000":
                         print("Piracy Detected")
+                        #TODO set has_pirated_content = True
                     else:
                         print("No piracy found")
+                        #TODO set has_pirated_content = False
 
         
