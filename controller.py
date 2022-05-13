@@ -26,7 +26,7 @@ if __name__ == "__main__":
         timestamp = datetime.fromtimestamp(result).strftime("%c")
 
         #check if we have scanned for pirated content today
-        if datetime.fromtimestamp(result) < datetime.today():
+        if datetime.fromtimestamp(result) < datetime.today().timestamp():
             links = get_video_links(key)
             if links != None: download_video_series(links)
             
@@ -41,14 +41,14 @@ if __name__ == "__main__":
                     #this command starts both videos at their first frame and goes to the end of pirate
                     input = " python ./app.py 1 1 -1 " + original + " " + pirate
                     #call pcd here
-                    #os.system(input)
+                    os.system("conda activate Tensor_CV_Fauna && " + input)
                     
                     #read pcd output from file
-                    #f = open("piracy.txt", "r")
-                    #piracy = f.read()
-                    #f.close()
+                    f = open("piracy.txt", "r")
+                    piracy = f.read()
+                    f.close()
 
-                    if "9000" == "9000":
+                    if piracy == "9000":
                         print("Piracy Detected")
                         pirate_data.set_pirated_content_boolean(key, True)
                     else:

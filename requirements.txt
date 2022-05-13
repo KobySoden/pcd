@@ -7,3 +7,9 @@ opencv-contrib-python==3.4.2.17
 edit_distance==1.0.1
 Pillow==5.1.0
 protobuf==3.5.2.post1
+python-dotenv
+faunadb
+requests
+bs4
+validators
+utils
