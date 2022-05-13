@@ -5,11 +5,8 @@
 
 # python app.py 1 1 -1 video1.mp4 video2.mp4
 
-#need to shift the anchor frame if there are no matches to start
-
+#TODO need to shift the anchor frame if there are no matches to start
 import os
-exit("Piracy")
-
 from pickle import TRUE
 import sys
 import cv2
@@ -25,6 +22,7 @@ from imutils.video import FPS
 from utils import label_map_util
 from utils import visualization_utils_color as vis_util
 
+PIRATETHRESHOLD = .1
 DEBUG_TIME = True
 DEBUG_ALPHA = True
 DEBUG_SKIPS = True
@@ -485,6 +483,26 @@ def compare_videos(path_video_1, path_video_2):
       print('TOTAL FRAMES: ', total_frames)
       print('SKIPS NUMBER: ', skips_number)
       print('MAX SKIP: ', skips_max)
+
+      #exit and return value to a file
+      f = open("piracy.txt", "w")
+      if has_pirated_content(skips_number, total_frames):
+        f.write("9000")
+      else:
+        f.write("0000")
+      f.close()
+      
+#calculate number of matches
+def percent_matched(num, denom):
+    return float(num)/float(denom)
+
+def has_pirated_content(total_frames, skips_number, skips_max=1):
+    #if our percent matches is greater than our threshold then we return true
+    if percent_matched(skips_number, total_frames) > PIRATETHRESHOLD:
+        #eventually we should use this skips max number for our calculation
+        if skips_max > 0:
+            return True
+    return False 
 
 def video_insert(frame):
   global out, last_frame, last_time
