@@ -32,22 +32,25 @@ if __name__ == "__main__":
             
             #TODO check every file for piracy
             for file in os.listdir("videos"):
-                print("checking for pirated content in: ", file)
-                
-                video = "videos/"+file
-                input = " python ./app.py 1 1 -1 " + video + " videos/original.mp4"
-                
-                #call pcd here
-                os.system(input)
-                
-                #read pcd output from file
-                f = open("piracy.txt", "r")
-                piracy = f.read()
-                f.close()
+                #loop through all the videos we want to compare the downloaded files with
+                pirate = "videos/"+file
+                for video in os.listdir("originals"):
+                    print("checking similarity of: ", video, " to: ", file)
+                    original = "originals/" + video 
 
-                if piracy == "9000":
-                    print("Piracy Detected")
-                else:
-                    print("No piracy found")
+                    #this command starts both videos at their first frame and goes to the end of pirate
+                    input = " python ./app.py 1 1 -1 " + original + " " + pirate
+                    #call pcd here
+                    os.system(input)
+                    
+                    #read pcd output from file
+                    f = open("piracy.txt", "r")
+                    piracy = f.read()
+                    f.close()
+
+                    if piracy == "9000":
+                        print("Piracy Detected")
+                    else:
+                        print("No piracy found")
 
         
