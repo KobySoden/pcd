@@ -12,4 +12,3 @@ faunadb
 requests
 bs4
 validators
-utils

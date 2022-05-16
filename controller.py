@@ -26,7 +26,7 @@ if __name__ == "__main__":
         timestamp = datetime.fromtimestamp(result).strftime("%c")
 
         #check if we have scanned for pirated content today
-        if datetime.fromtimestamp(result) < datetime.today().timestamp():
+        if datetime.fromtimestamp(result) < datetime.today():
             links = get_video_links(key)
             if links != None: download_video_series(links)
             
