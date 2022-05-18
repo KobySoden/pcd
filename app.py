@@ -22,9 +22,9 @@ from imutils.video import FPS
 from utils import label_map_util
 from utils import visualization_utils_color as vis_util
 
-PIRATETHRESHOLD = .1
-DEBUG_TIME = True
-DEBUG_ALPHA = True
+PIRATETHRESHOLD = .2
+DEBUG_TIME = False
+DEBUG_ALPHA = False
 DEBUG_SKIPS = True
 out = None
 last_frame = None
@@ -48,7 +48,7 @@ def compare_videos(path_video_1, path_video_2):
   PATH_TO_CKPT = './ssd_inception2.pb'
   #file containing labeled objects
   PATH_TO_LABELS = './labels.pbtxt'
-  thresh = 0.15                    #modifying this: default .2
+  thresh = 0.2                    #modifying this: default .2
   sequence_sorted = False
   store_output = True
   enable_tracking = True
@@ -65,7 +65,7 @@ def compare_videos(path_video_1, path_video_2):
   tracker_type = 'KCF' # 'BOOSTING','MIL','KCF','TLD','MEDIANFLOW','GOTURN'
   NUM_CLASSES = 90
   MIN_MATCH_COUNT = 3             #modifying this: default 10
-  SIMILARITY_THRESHOLD = 0.075    #modifying this: default .1
+  SIMILARITY_THRESHOLD = 0.1    #modifying this: default .1
   trackers = {}
   positions = {}
   source_frame = 0
@@ -494,6 +494,8 @@ def compare_videos(path_video_1, path_video_2):
       
 #calculate number of matches
 def percent_matched(num, denom):
+    if denom <= 0:
+      return 0
     return float(num)/float(denom)
 
 def has_pirated_content(total_frames, skips_number, skips_max=1):
