@@ -22,27 +22,27 @@ if __name__ == "__main__":
         except FaunaDB.FaunaDBException as exception:
             print(exception)
             exit("FAUNA FAILED")
-        
+
         timestamp = datetime.fromtimestamp(result).strftime("%c")
 
         #check if we have scanned for pirated content today
         if datetime.fromtimestamp(result) < datetime.today():
             links = get_video_links(key)
             if links != None: download_video_series(links)
-            
+
             #TODO check every file for piracy
             for suspect_file in os.listdir("videos"):
                 #loop through all the videos we want to compare the downloaded files with
                 pirate = "videos/"+suspect_file
                 for legit_video in os.listdir("originals"):
                     print("checking similarity of:", legit_video, " and ", suspect_file)
-                    original = "originals/" + legit_video 
+                    original = "originals/" + legit_video
 
                     #this command starts both videos at their first frame and goes to the end of pirate
                     input = " python ./app.py 1 1 -1 " + original + " " + pirate
                     #call pcd here
                     os.system("conda activate Tensor_CV_Fauna && " + input)
-                    
+
                     #read pcd output from file
                     f = open("piracy.txt", "r")
                     piracy = f.read()
@@ -53,11 +53,11 @@ if __name__ == "__main__":
                         pirate_data.set_pirated_content_boolean(key, True)
                     else:
                         print("No piracy found")
-                        pirate_data.set_pirated_content_boolean(key, True)
+                        pirate_data.set_pirated_content_boolean(key, False)
                     pirate_data.set_pcd_last(url_key=key, pcd_last=datetime.now().timestamp())
-                    
+
                     #delete all the downloaded files
                     os.remove(os.path.join("videos", suspect_file))
                     #reset links
                     links = None
-        
+
