@@ -1,6 +1,6 @@
 # pcd
 
-This project is a subsection of a larger project but it can operate on its own. By downloading this repository you will have a fully functioning pirated content detector. It must be connected to a FaunaDB database to run on a website. Otherwise it will work with two videos. 
+This project is a subsection of a larger project but it can operate on its own. By downloading this repository you will have a fully functioning pirated content detector. It must be connected to a FaunaDB database to run on a website. Otherwise it will work with two videos. Before running this you must create an anaconda environment named Tensor_CV_Fauna. See setup instructions below for more information.
 
 Usage: 
        conda activate Tensor_CV_Fauna
