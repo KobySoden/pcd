@@ -3,12 +3,16 @@ import sys
 from bs4 import BeautifulSoup
 import validators
 
+#download location
 path = "videos/"
+
+#timeout value for requests
+TIMEOUT = 5
 
 def get_video_links(archive_url):
   try:
     #create response object
-    r = requests.get(archive_url)
+    r = requests.get(archive_url, timeout=TIMEOUT)
   except:
     return None
   #create beautiful-soup object
@@ -33,10 +37,10 @@ def get_video_links(archive_url):
   return video_links
 
 def download_video_series(video_links):
- 
+  i = 0
   for link in video_links:
     
-   # iterate through all links in video_links
+    # iterate through all links in video_links
     # and download them one by one
     #obtain filename by splitting url and getting last string
     file_name = link.split('/')[-1]  
@@ -44,17 +48,20 @@ def download_video_series(video_links):
     print ("Downloading file:%s"%file_name)
  
     #create response object
-    r = requests.get(link, stream = True)
+    r = requests.get(link, stream = True, timeout=TIMEOUT)
  
     #download started
     with open(path+file_name, 'wb') as f:
       for chunk in r.iter_content(chunk_size = 1024*1024):
         if chunk:
           f.write(chunk)
- 
+
+    #increment number of videos downloaded
+    i += 1
+
     print ("%s downloaded!\n"%file_name)
  
-  print ("All videos downloaded!")
+  print (i, " videos downloaded!")
   return
  
 if __name__ == "__main__":
