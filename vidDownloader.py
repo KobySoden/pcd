@@ -3,7 +3,6 @@ import sys
 from bs4 import BeautifulSoup
 import validators
 
-<<<<<<< HEAD
 #download location
 path = "videos/"
 
@@ -14,14 +13,6 @@ def get_video_links(archive_url):
   try:
     #create response object
     r = requests.get(archive_url, timeout=TIMEOUT)
-=======
-path = "videos/"
-
-def get_video_links(archive_url):
-  try:
-    #create response object
-    r = requests.get(archive_url)
->>>>>>> 0a3df7ad052cb7a30b7844df8d82d2827c4136ce
   except:
     return None
   #create beautiful-soup object
@@ -46,17 +37,10 @@ def get_video_links(archive_url):
   return video_links
 
 def download_video_series(video_links):
-<<<<<<< HEAD
   i = 0
   for link in video_links:
     
     # iterate through all links in video_links
-=======
- 
-  for link in video_links:
-    
-   # iterate through all links in video_links
->>>>>>> 0a3df7ad052cb7a30b7844df8d82d2827c4136ce
     # and download them one by one
     #obtain filename by splitting url and getting last string
     file_name = link.split('/')[-1]  
@@ -64,31 +48,17 @@ def download_video_series(video_links):
     print ("Downloading file:%s"%file_name)
  
     #create response object
-<<<<<<< HEAD
     r = requests.get(link, stream = True, timeout=TIMEOUT)
-=======
-    r = requests.get(link, stream = True)
->>>>>>> 0a3df7ad052cb7a30b7844df8d82d2827c4136ce
  
     #download started
     with open(path+file_name, 'wb') as f:
       for chunk in r.iter_content(chunk_size = 1024*1024):
         if chunk:
           f.write(chunk)
-<<<<<<< HEAD
-
     #increment number of videos downloaded
     i += 1
 
     print ("%s downloaded!\n"%file_name)
- 
-  print (i, " videos downloaded!")
-=======
- 
-    print ("%s downloaded!\n"%file_name)
- 
-  print ("All videos downloaded!")
->>>>>>> 0a3df7ad052cb7a30b7844df8d82d2827c4136ce
   return
  
 if __name__ == "__main__":
